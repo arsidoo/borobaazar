@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1095995952460",
+    "project_id": "boro-baazar-3042e",
+    "storage_bucket": "boro-baazar-3042e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095995952460:android:32acf00605aa949bc253e9",
+        "android_client_info": {
+          "package_name": "com.borobaazar.www"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095995952460-9n9g8tfdrqjlts6fjcs3uvfn2o4p8d6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzvZ9SGGLZIlFhnj2LIneiXDvoKlbmWqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095995952460-8ltcrf0p08moal9nle5bcq4dbqb2cjvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.borobaazar.www",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 20900000,
+      "versionName": "2.9.0",
+      "outputFile": "com.borobaazar.www-mobile-2.9.0-20900000-20230801-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
