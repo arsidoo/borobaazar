@@ -3,17 +3,15 @@
     <form action="#">
       <div class="row">
         <div class="col-lg-6">
-          <div class="form-group d-flex justify-content-center">
-            <input type="text" v-model="form.q" @keyup="sortProducts"
-                   style="width: 70%;height: 50px;border-color: #0fac81;" class="form-control"
-                   :placeholder=lang.scan_barcode_or_product_name>
-          </div>
           <div class="sg-card-header d-flex justify-content-between">
+            <div class="form-group">
+              <input type="text" v-model="form.q" @keyup="sortProducts" style="border-color: #0fac81;"
+                class="form-control" :placeholder=lang.scan_barcode_or_product_name>
+            </div>
             <div class="form-group">
               <select v-model="form.category_id" class="form-control" @change="sortProducts">
                 <option value="">{{ lang.all_categories }}</option>
-                <option v-for="(category,categoryIndex) in categories" :key="categoryIndex"
-                        :value="category.id">
+                <option v-for="(category, categoryIndex) in categories" :key="categoryIndex" :value="category.id">
                   {{ category.title }} ({{ category.total_products }})
                 </option>
               </select>
@@ -21,52 +19,47 @@
             <div class="form-group">
               <select v-model="form.brand_id" class="form-control" @change="sortProducts">
                 <option value="">{{ lang.brands }}</option>
-                <option :value="brand.id" v-for="(brand,brandIndex) in brands"
-                        :key="brandIndex">{{ brand.title }} ({{ brand.total_products }})
+                <option :value="brand.id" v-for="(brand, brandIndex) in brands" :key="brandIndex">{{ brand.title }} ({{
+                  brand.total_products }})
                 </option>
               </select>
             </div>
           </div>
           <div class="sg-card-content text-center">
             <div class="row">
-              <div class="col-md-3" v-for="(stockProduct,productIndex) in searchingProduct"
-                   :key="productIndex">
-                <a class="custom--card-style" href="javascript:void(0)"
-                   @click="cartProduct(stockProduct,productIndex)">
+              <div class="col-lg-3" v-for="(stockProduct, productIndex) in searchingProduct" :key="productIndex">
+                <a class="custom--card-style" href="javascript:void(0)" @click="cartProduct(stockProduct, productIndex)">
                   <div class="card pos-card">
-
                     <div class="thumb mb_39">
-                      <img  :src="stockProduct.image"
-                           class="img-fluid" :alt="stockProduct.product_name">
+                      <img :src="stockProduct.image" class="img-fluid" :alt="stockProduct.product_name">
                     </div>
                     <p class="text-ellipse-one">
                       {{ stockProduct.product_name }}</p>
                     <div class="sg-price justify-content-center">
-                                                <span class="price"><del
-                                                    v-if="stockProduct.special_discount > 0">{{
-                                                    priceFormat(stockProduct.price)
-                                                  }}</del>
-                                                    <span v-if="stockProduct.special_discount > 0">
-                                                            {{ priceFormat(stockProduct.discount_price) }}
-                                                        </span>
-                                                    <span v-else>{{ priceFormat(stockProduct.price) }}</span>
-                                                </span>
-                      <span v-if="stockProduct.current_stock > 0"
-                            class="stock-badge">in Stock: {{ stockProduct.current_stock }}</span>
-                      <span v-else class="stock-badge"
-                            :class="{ 'red_badge' : stockProduct.current_stock == 0 }">Out Of Stock</span>
-                      <span class="variant_badge"
-                            v-if="stockProduct.has_variant == 1 && stockProduct.name">{{ stockProduct.name }}</span>
+                      <span class="price"><del v-if="stockProduct.special_discount > 0">{{
+                        priceFormat(stockProduct.price)
+                      }}</del>
+                        <span v-if="stockProduct.special_discount > 0">
+                          {{ priceFormat(stockProduct.discount_price) }}
+                        </span>
+                        <span v-else>{{ priceFormat(stockProduct.price) }}</span>
+                      </span>
+                      <span v-if="stockProduct.current_stock > 0" class="stock-badge">in Stock: {{
+                        stockProduct.current_stock }}</span>
+                      <span v-else class="stock-badge" :class="{ 'red_badge': stockProduct.current_stock == 0 }">Out Of
+                        Stock</span>
+                      <span class="variant_badge" v-if="stockProduct.has_variant == 1 && stockProduct.name">{{
+                        stockProduct.name }}</span>
                     </div>
                   </div>
                 </a>
               </div>
-              <div class="col-md-12" v-if="searchingProduct.length == 0"><p><strong
-                  class="text-danger">{{ lang.no_product_found }}</strong></p></div>
+              <div class="col-md-12" v-if="searchingProduct.length == 0">
+                <p><strong class="text-danger">{{ lang.no_product_found }}</strong></p>
+              </div>
             </div>
             <div class="button" v-if="!load_more_loading && products.next_page_url">
-              <a href="javascript:void(0)"
-                 @click="loadMore()" class="btn btn-outline-info">{{ lang.load_more }}</a>
+              <a href="javascript:void(0)" @click="loadMore()" class="btn btn-outline-info">{{ lang.load_more }}</a>
             </div>
             <div v-if="load_more_loading">
               <pos_loading_button :loading_image="loading_image"></pos_loading_button>
@@ -79,33 +72,30 @@
               <div class="sg-card-header d-flex justify-content-between">
                 <div class="form-group">
                   <div class="dropdown pos_dropdown">
-                    <input type="text" v-model="form.p" @keyup="sortProducts($event,'p')"
-                           class="form-control" @click.stop="searchDropdown"
-                           :placeholder=lang.scan_barcode_or_product_name>
+                    <input type="text" v-model="form.p" @keyup="sortProducts($event, 'p')" class="form-control"
+                      @click.stop="searchDropdown" :placeholder=lang.scan_barcode_or_product_name>
                     <ul @click.stop class="dropdown-menu show" aria-labelledby="dropdownMenuButton"
-                        v-if="searching_product.length > 0 && search_key_focus">
-                      <li @click="cartProduct(product,'search')" class="dropdown-item"
-                          v-for="(product,index) in searching_product" :key="index">
+                      v-if="searching_product.length > 0 && search_key_focus">
+                      <li @click="cartProduct(product, 'search')" class="dropdown-item"
+                        v-for="(product, index) in searching_product" :key="index">
 
                         <p class="product-info-ellipse"> {{ product.product_name }}</p>
                         <!--                                                <p class="price"> {{ product.product_price }}</p>-->
                         <div class="d-flex justify-content-between">
-                                                    <span class="price"><del
-                                                        v-if="product.stock_discount_price > 0">{{
-                                                        priceFormat(product.product_price)
-                                                      }}</del>
-                                                            <span v-if="product.stock_discount_price > 0">
-                                                                    {{ priceFormat(product.discount_price) }}
-                                                                </span>
-                                                            <span v-else>{{ priceFormat(product.product_price) }}</span>
-                                                        </span>
+                          <span class="price"><del v-if="product.stock_discount_price > 0">{{
+                            priceFormat(product.product_price)
+                          }}</del>
+                            <span v-if="product.stock_discount_price > 0">
+                              {{ priceFormat(product.discount_price) }}
+                            </span>
+                            <span v-else>{{ priceFormat(product.product_price) }}</span>
+                          </span>
                           <span v-if="product.current_stock > 0" class="price">in Stock: {{
-                              product.current_stock
-                            }}</span>
-                          <span v-else class="price"
-                                :class="{ 'red_badge' : product.current_stock == 0 }">{{ lang.out_of_stock }}</span>
-                          <span class="price"
-                                v-if="product.name">{{ product.name }}</span>
+                            product.current_stock
+                          }}</span>
+                          <span v-else class="price" :class="{ 'red_badge': product.current_stock == 0 }">{{
+                            lang.out_of_stock }}</span>
+                          <span class="price" v-if="product.name">{{ product.name }}</span>
                         </div>
 
                       </li>
@@ -116,47 +106,64 @@
                   <select id="on_change_user" class="form-control select2 pos-customer">
                   </select>
                   <div class="icon">
-                    <a href="javascript:void(0)" data-target="#user-address"
-                       data-toggle="modal"><i class='bx bx-map pos-address-icon'></i></a>
+                    <a :href="url + '/admin/create-customer'" target="_blank"><i class='bx bx-plus'></i></a>
                   </div>
+                </div>
+                <div class="icon">
+                  <a href="javascript:void(0)" data-target="#user-address" data-toggle="modal"><i
+                      class='bx bx-map pos-address-icon'></i></a>
                 </div>
               </div>
               <div id="cart_list" class="cart-list cart-list-height">
-                <ul class="global-list">
-                  <li v-for="(cart,i) in cartProducts" :key="i">
+                <ul class="global-list" v-if="cartProducts.length > 0">
+                  <li v-for="(cart, i) in cartProducts" :key="i">
                     <div class="justify-content-between d-flex">
                       <div class="quantity" data-trigger="spinner">
-                        <a class="btn" href="javascript:void(0);"
-                           @click="cartMinus(cart)" data-spin="down"><i
-                            class="bx bx-minus"></i></a>
-                        <input type="text" v-model="cartProducts[i].product.qty"
-                               title="quantity"
-                               class="input-text" disabled>
-                        <a class="btn" href="javascript:void(0);"
-                           @click="cartPlus(cart)" data-spin="up"><i
-                            class="bx bx-plus"></i></a>
+                        <div class="btn-group ml-2">
+                          <a class="btn btn-outline-danger" @click="cartMinus(cart)" data-spin="down">
+                            <i class="bx bx-minus"></i>
+                          </a>
+                          <a class="btn btn-outline-danger">{{ cartProducts[i].product.qty }}</a>
+                          <a class="btn btn-outline-danger" @click="cartPlus(cart)" data-spin="up">
+                            <i class="bx bx-plus"></i>
+                          </a>
+                        </div>
                       </div>
                       <div class="text">
                         <p class="text-ellipse-two mrg-pos-product">{{
-                            cart.product.product_name
-                          }}</p>
+                          cart.product.product_name
+                        }}</p>
                       </div>
                     </div>
                     <div class="justify-content-between d-flex">
                       <div class="price">
-                        <p>{{ priceFormat(cart.product.price) }} x {{ cart.product.qty }}</p>
-                        <p><strong>{{ priceFormat(cart.product.sub_total) }}</strong></p>
+                        <p>{{ priceFormat(cart.product.price) }} x {{ cart.product.qty }} = <strong>{{
+                          priceFormat(cart.product.sub_total) }}</strong></p>
                       </div>
-                      <a href="javascript:void(0)" @click="removeFromCart(i,cart)"
-                         class="pos-delete"><i class="bx bx-trash"></i></a>
+                      <a href="javascript:void(0)" @click="removeFromCart(i, cart)" class="pos-delete"><i
+                          class="bx bx-trash"></i></a>
                     </div>
                   </li>
                 </ul>
+                <h5 v-else class="text-center text-danger m-2">No Products Added Yet</h5>
+              </div>
+              <div class="pos-footer">
+                <div class="form-group">
+                  <label>{{ lang.discount }}</label>
+                  <input type="number" @keyup="totalAmount" v-model="custom_discount" class="form-control"
+                    placeholder="0">
+                </div>
+                <div class="form-group">
+                  <label>{{ lang.shipping_cost }}</label>
+                  <input type="number" @keyup="totalAmount" v-model="custom_shipping_cost" class="form-control"
+                    placeholder="0">
+                </div>
               </div>
               <div class="sub-total">
                 <ul class="global-list">
                   <li>{{ lang.sub_total }}<span>{{ priceFormat(orderAmount.subTotal) }}</span></li>
-                  <li v-if="order_tax_type == 'before_tax' || vat_type == 'product_base'">{{ lang.tax }}<span>{{ priceFormat(orderAmount.taxes) }}</span></li>
+                  <li v-if="order_tax_type == 'before_tax' || vat_type == 'product_base'">{{ lang.tax }}<span>{{
+                    priceFormat(orderAmount.taxes) }}</span></li>
                   <li>{{ lang.discount }}<span>{{ priceFormat(orderAmount.discount) }}</span></li>
                   <li>{{ lang.shipping_cost }}<span>{{ priceFormat(orderAmount.shipping_fee) }}</span>
                   </li>
@@ -170,44 +177,32 @@
                   <p>{{ lang.total }} <span>{{ priceFormat(orderAmount.total) }}</span></p>
                 </div>
               </div>
-              <div class="pos-footer">
-                <div class="form-group">
-                  <label>{{ lang.discount }}</label>
-                  <input type="number" @keyup="totalAmount" v-model="custom_discount"
-                         class="form-control" placeholder="0">
-                </div>
-                <div class="form-group">
-                  <label>{{ lang.shipping_cost }}</label>
-                  <input type="number" @keyup="totalAmount" v-model="custom_shipping_cost"
-                         class="form-control" placeholder="0">
-                </div>
 
-              </div><!-- /.pos-footer -->
-              <div class="form-group pos_payment_dropdown text-right">
+              <div class="form-group pos_payment_dropdown text-center">
                 <div class="btn-group" v-if="!process_loading">
-                  <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                          :class="{ 'disable_btn' : cartProducts.length == 0 }"><span
-                  >{{ lang.confirm }}</span></button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" v-if="offline_methods.length>0"
-                       href="#" data-target="#offline_payment"
-                       data-toggle="modal">{{ lang.offline_payment }}</a>
-                    <a class="dropdown-item" href="javaScript:void(0)"
-                       @click="confirmOrder('cash_on_delivery')">{{ lang.cash_on_delivery }}</a>
-                    <a class="dropdown-item" href="javaScript:void(0)"
-                       @click="confirmOrder('cash_payment')">{{ lang.cash_payment }}</a>
-                    <a class="dropdown-item" href="javaScript:void(0)"
-                       @click="confirmOrder('draft')">{{ lang.keep_in_draft }}</a>
-                  </div>
+                  <button class="btn btn-outline-success" :class="{ 'disable_btn': cartProducts.length == 0 }"
+                    @click="confirmOrder('cash_payment')">
+                    Cash / Card
+                  </button>
+                  <button class="btn btn-outline-danger" :class="{ 'disable_btn': cartProducts.length == 0 }"
+                    v-if="offline_methods.length > 0" href="#" data-target="#offline_payment" data-toggle="modal">
+                    {{ lang.offline_payment }}
+                  </button>
+                  <button class="btn btn-outline-danger" :class="{ 'disable_btn': cartProducts.length == 0 }"
+                    @click="confirmOrder('cash_on_delivery')">
+                    Home Delivery
+                  </button>
+                  <button class="btn btn-outline-warning" :class="{ 'disable_btn': cartProducts.length == 0 }"
+                    @click="confirmOrder('draft')">
+                    {{ lang.draft }}
+                  </button>
+                  <button class="btn btn-outline-info btn-circle" type="button" data-toggle="modal" @click="draftList()"
+                    data-target="#draft-list">Recent
+                  </button>
                 </div>
-                <pos_loading_button v-if="process_loading" :img="'process-img-size'"
-                                    :class_name="'btn btn-secondary'"
-                                    :loading_image="loading_image"></pos_loading_button>
+                <pos_loading_button v-if="process_loading" :img="'process-img-size'" :class_name="'btn btn-secondary'"
+                  :loading_image="loading_image"></pos_loading_button>
 
-                <button class="btn btn-outline-info btn-circle" type="button" data-toggle="modal"
-                        @click="draftList()" data-target="#draft-list">{{ lang.recent_orders }}
-                </button>
                 <!--                <a :href="url + '/admin/pos/print-invoice/' + this.order.id" target="_blank"-->
                 <!--                   class="btn btn-outline-warning btn-circle" :class="{ 'disable_btn' : !trx_for_invoice }"-->
                 <!--                   type="button"><i-->
@@ -221,33 +216,30 @@
                   <div class="sg-card-header d-flex justify-content-between">
                     <table class="table table-striped table-md">
                       <tbody>
-                      <tr>
-                        <th>#</th>
-                        <th>{{ lang.date }}</th>
-                        <th>{{ lang.customer }}</th>
-                        <th>{{ lang.total_amount }}</th>
-                        <th>{{ lang.actions }}</th>
-                      </tr>
-                      <tr class="table-data-row">
-                        <td>1</td>
-                        <td>{{ order.order_date }}</td>
-                        <td>{{ order.customer_name }}</td>
-                        <td>{{ priceFormat(order.total_payable) }}</td>
-                        <td>
-                          <button v-if="!download_loading" class="btn btn-outline-danger btn-circle"
-                                  :class="{ 'disable_btn' : !trx_for_invoice }" type="button"
-                                  data-original-title="PDF" @click="download('')"><i
-                              class="bx bxs-file-pdf"></i></button>
-                          <pos_loading_button v-if="download_loading" :img="'img_size'"
-                                              :class_name="'btn-danger'"
-                                              :loading_image="loading_image"></pos_loading_button>
-                          <a :href="url + '/admin/pos/print-invoice/' + this.order.id" target="_blank"
-                             class="btn btn-outline-warning btn-circle"
-                             :class="{ 'disable_btn' : invoice_download_loading }"
-                             type="button"><i
-                              class="bx bx-printer"></i></a>
-                        </td>
-                      </tr>
+                        <tr>
+                          <th>#</th>
+                          <th>{{ lang.date }}</th>
+                          <th>{{ lang.customer }}</th>
+                          <th>{{ lang.total_amount }}</th>
+                          <th>{{ lang.actions }}</th>
+                        </tr>
+                        <tr class="table-data-row">
+                          <td>1</td>
+                          <td>{{ order.order_date }}</td>
+                          <td>{{ order.customer_name }}</td>
+                          <td>{{ priceFormat(order.total_payable) }}</td>
+                          <td>
+                            <button v-if="!download_loading" class="btn btn-outline-danger btn-circle"
+                              :class="{ 'disable_btn': !trx_for_invoice }" type="button" data-original-title="PDF"
+                              @click="download('')"><i class="bx bxs-file-pdf"></i></button>
+                            <pos_loading_button v-if="download_loading" :img="'img_size'" :class_name="'btn-danger'"
+                              :loading_image="loading_image"></pos_loading_button>
+                            <a :href="url + '/admin/pos/print-invoice/' + this.order.id" target="_blank"
+                              class="btn btn-outline-warning btn-circle"
+                              :class="{ 'disable_btn': invoice_download_loading }" type="button"><i
+                                class="bx bx-printer"></i></a>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -261,18 +253,16 @@
     <input type="hidden" name="changed_user" :value="walking_customer.id" class="changed_user" id="changed_user">
 
     <draft :draft="draft" :loading_image="loading_image" @invoiceDownload="invoiceDownload" :lang="lang"
-           :loading_for_draft=loading_for_draft
-           :cartProducts="cartProducts" :invoice_download_loading="invoice_download_loading"
-           :recent_orders_length="recent_orders" @draftOrder="getDraftOrder"/>
-    <div class="modal fade" v-if="offline_methods.length>0" id="offline_payment" tabindex="-1"
-         aria-labelledby="offline_payment"
-         aria-hidden="true">
+      :loading_for_draft=loading_for_draft :cartProducts="cartProducts"
+      :invoice_download_loading="invoice_download_loading" :recent_orders_length="recent_orders"
+      @draftOrder="getDraftOrder" />
+    <div class="modal fade" v-if="offline_methods.length > 0" id="offline_payment" tabindex="-1"
+      aria-labelledby="offline_payment" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ lang.offline_payment }}</h5>
-            <button type="button" id="close" class="close modal_close" data-dismiss="modal"
-                    aria-label="Close">
+            <button type="button" id="close" class="close modal_close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -280,15 +270,12 @@
             <div class="sg-shipping">
               <div class="card-list">
                 <ul class="global-list grid-3">
-                  <li class="pl-0" v-for="(method,methodIndex) in offline_methods" :key="methodIndex">
+                  <li class="pl-0" v-for="(method, methodIndex) in offline_methods" :key="methodIndex">
                     <div class="input-checkbox">
-                      <input type="radio" :id="'offline'+method.id"
-                             value="offline_method"
-                             @change="offlineCheck(method)"
-                             name="radio">
-                      <label :for="'offline'+method.id">
-                        <img :src="method.image" :alt="method.name"
-                             class="img-fluid">
+                      <input type="radio" :id="'offline' + method.id" value="offline_method"
+                        @change="offlineCheck(method)" name="radio">
+                      <label :for="'offline' + method.id">
+                        <img :src="method.image" :alt="method.name" class="img-fluid">
                         {{ method.name }}
                       </label>
                     </div>
@@ -312,8 +299,8 @@
                   </div>
                   <div class="form-group">
                     <label>{{ lang.transaction_id }}</label>
-                    <input type="text" v-model="offline_method.trx_id"
-                           class="form-control focus-unset" :placeholder=lang.transaction_id>
+                    <input type="text" v-model="offline_method.trx_id" class="form-control focus-unset"
+                      :placeholder=lang.transaction_id>
                   </div>
                   <div v-if="offline_method.instructions">
                     <div class="form-group">
@@ -323,12 +310,11 @@
                   </div>
                   <div class="text-center mt-3 button">
                     <button @click="confirmOrder('offline_method')" class="btn btn-outline-primary"
-                            v-if="!payment_process_loading">
+                      v-if="!payment_process_loading">
                       {{ lang.proceed }}
                     </button>
                     <pos_loading_button v-if="payment_process_loading" :img="'process-img-size'"
-                                        :class_name="'btn btn-warning'"
-                                        :loading_image="loading_image"></pos_loading_button>
+                      :class_name="'btn btn-warning'" :loading_image="loading_image"></pos_loading_button>
                   </div>
                 </div>
               </div>
@@ -338,7 +324,7 @@
       </div>
     </div>
     <user-address :countries="countries" :userAddress="userAddress" :user_id="user_id" @shippingAddress="getAddress"
-                  :lang="lang"></user-address>
+      :lang="lang"></user-address>
   </div>
 </template>
 <script>
@@ -449,6 +435,7 @@ export default {
     }
   },
   mounted() {
+    window.addEventListener('keydown', this.handleGlobalKeyDown);
     this.getData();
     this.searchingProduct = this.products.data;
     this.copyProductList = this.products;
@@ -460,16 +447,19 @@ export default {
     $(document).ready(function () {
       that.initiateSelect2();
       $("#on_change_user")
-          .on("select2:select", e => {
-            that.orderAmount.user_id = e.params.data.id;
-            that.user_id = e.params.data.id;
-            axios.get(document.getElementById('url').value + '/admin/pos/get-user-address/' + that.orderAmount.user_id)
-                .then((response) => {
-                  that.userAddress = response.data;
-                  that.shipping_address = [];
-                })
-          })
+        .on("select2:select", e => {
+          that.orderAmount.user_id = e.params.data.id;
+          that.user_id = e.params.data.id;
+          axios.get(document.getElementById('url').value + '/admin/pos/get-user-address/' + that.orderAmount.user_id)
+            .then((response) => {
+              that.userAddress = response.data;
+              that.shipping_address = [];
+            })
+        })
     });
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleGlobalKeyDown);
   },
   computed: {},
   watch: {
@@ -648,11 +638,10 @@ export default {
         this.orderAmount.shipping_fee = parseFloat(this.orderAmount.shipping_fee) + parseFloat(main_shipping_cost)
       }
 
-      if(this.order_tax_type == 'after_tax' && this.vat_type == 'order_base')
-      {
+      if (this.order_tax_type == 'after_tax' && this.vat_type == 'order_base') {
         this.orderAmount.total = (parseFloat(this.orderAmount.subTotal) + parseFloat(this.orderAmount.shipping_fee)) - parseFloat(this.orderAmount.discount);
       }
-      else{
+      else {
         this.orderAmount.total = (parseFloat(this.orderAmount.subTotal) + parseFloat(this.orderAmount.taxes) + parseFloat(this.orderAmount.shipping_fee)) - parseFloat(this.orderAmount.discount);
       }
     },
@@ -745,16 +734,26 @@ export default {
       })
     },
     removeFromCart(i, cart) {
-      if (confirm("Are you sure?")) {
-        this.cartProducts.splice(i, 1)
-        this.totalAmount();
-      }
-
+      this.cartProducts.splice(i, 1)
+      this.totalAmount();
       this.checkStock(cart, 'plus', cart.product.qty);
     },
+    handleGlobalKeyDown(event) {
+      if (event.keyCode === 13) {
+        if (this.cartProducts.length > 0) {
+          this.confirmOrder('cash_payment');
+        }
+      }
+    },
     confirmOrder(paymentType) {
-      if (!confirm("Are you sure?")) {
-        return false;
+      // if (!confirm("Are you sure?")) {
+      //   return false;
+      // }
+
+      if (paymentType == 'cash_on_delivery' && !this.shipping_address.id) {
+        if (!confirm(this.lang.confirm_without_address)) {
+          return false;
+        }
       }
 
       if (!this.orderAmount.user_id) {
@@ -763,12 +762,6 @@ export default {
         return toastr['warning'](this.lang.product_not_selected);
       } else if (paymentType == 'offline_method' && this.offline_method.payment_details.name == '') {
         return toastr['warning'](this.lang.select_payment_method);
-      }
-
-      if (!this.shipping_address.id) {
-        if (!confirm(this.lang.confirm_without_address)) {
-          return false;
-        }
       }
 
       if (paymentType == 'cash_payment') {
@@ -852,7 +845,11 @@ export default {
           this.makeZero();
           this.custom_discount = '';
           this.custom_shipping_cost = '';
-          // $('#invoice').modal('show')
+
+          if (paymentType == 'cash_payment' || paymentType == 'cash_on_delivery') {
+            const url = this.url + '/admin/pos/print-invoice/' + this.order.id;
+            window.open(url, '_blank');
+          }
         }
       }).catch((error) => {
         this.process_loading = false;
@@ -937,11 +934,10 @@ export default {
         this.orderAmount.taxes = order.tax;
         this.orderAmount.shipping_fee = order.shipping_cost;
         this.orderAmount.discount = order.discount;
-        if (this.order_tax_type == 'after_tax' && this.vat_type == 'order_base')
-        {
+        if (this.order_tax_type == 'after_tax' && this.vat_type == 'order_base') {
           this.orderAmount.total = order.total_amount;
         }
-        else{
+        else {
           this.orderAmount.total = order.total_payable;
         }
         this.orderAmount.trx_id = trx_id;
@@ -961,34 +957,34 @@ export default {
       } else {
         this.invoice_download_loading = true;
       }
-      axios.get(this.url + '/admin/pos/invoice-download/' + this.order.id, {responseType: 'arraybuffer'})
-          .then(response => {
-            this.download_loading = false;
-            this.invoice_download_loading = false;
-            if (response.data.error) {
-              this.$toastr.error(response.data.error, this.lang.Error + ' !!');
-            } else {
-              let blob = new Blob([response.data], {type: 'application/pdf'});
-              let link = document.createElement('a');
-              link.href = window.URL.createObjectURL(blob);
-              link.download = this.order.code + '.pdf';
-              link.click();
-              this.makeZero();
-              this.makeNull();
-              this.cartProducts = []
+      axios.get(this.url + '/admin/pos/invoice-download/' + this.order.id, { responseType: 'arraybuffer' })
+        .then(response => {
+          this.download_loading = false;
+          this.invoice_download_loading = false;
+          if (response.data.error) {
+            this.$toastr.error(response.data.error, this.lang.Error + ' !!');
+          } else {
+            let blob = new Blob([response.data], { type: 'application/pdf' });
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = this.order.code + '.pdf';
+            link.click();
+            this.makeZero();
+            this.makeNull();
+            this.cartProducts = []
 
-            }
-          }).catch(error => {
-        this.download_loading = false;
-        this.$toastr.error(error.response.statusText, this.lang.Error + ' !!');
-      })
+          }
+        }).catch(error => {
+          this.download_loading = false;
+          this.$toastr.error(error.response.statusText, this.lang.Error + ' !!');
+        })
     },
     priceFormat(amount) {
       // amount = amount/this.defaultCurrency.exchange_rate;
       amount = amount * this.active_currency.exchange_rate;
 
       let no_of_decimals, decimal_separator, thousands_separator, currency_symbol_format, fixed_amount,
-          formatted_amount = '';
+        formatted_amount = '';
       no_of_decimals = this.settings.no_of_decimals ? this.settings.no_of_decimals : 2;
 
       decimal_separator = this.settings.decimal_separator ? this.settings.decimal_separator : '.';
@@ -1121,6 +1117,7 @@ export default {
 </script>
 
 <style scoped>
-
-
+.main-navbar {
+  display: none;
+}
 </style>

@@ -111,8 +111,7 @@ export default {
 <style scoped>
 /* Add some colors and styles to improve the appearance */
 .sidebar {
-  top: 0;
-  height: 100vh;
+  height: 90vh;
   overflow-y: auto;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

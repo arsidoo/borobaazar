@@ -1136,7 +1136,10 @@ span.oneline {
     bottom: 2px;
 }
 .cart-list.cart-list-height {
-    height: 348px;
+    height: auto;
+    max-height: 348px;
+    overflow-y: auto;
+    background-color: #f0f0f0;
 }
 
 /*invoice*/
@@ -1242,8 +1245,8 @@ span.oneline {
     margin-right: 6px;
 }
 .sg-card-content .card.pos-card{
-    padding: 15px 15px 10px;
-    color: #333;
+    padding: 5px;
+    color: #000;
     overflow: hidden;
     position: relative;
     border: 1px solid #EEEEEE;
@@ -1272,7 +1275,7 @@ a.pos-delete {
 
 }
 p.text-ellipse-two.mrg-pos-product {
-    margin-top: 32px !important;
+    margin-top: 7px !important;
 }
 .img_size{
     height:23px;

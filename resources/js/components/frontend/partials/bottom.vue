@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-md-8 footer-left">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-sm-2 col-md-2">
 								<div class="footer-logo">
 									<router-link :to="{ name: 'home' }">
 										<img loading="lazy" :src="settings.footer_logo" alt="preloader" class="img-fluid"
@@ -16,7 +16,7 @@
 							<div class="col-sm-10 col-md-10 mb-5">
 								<div v-html="settings.about_description"></div>
 							</div>
-							<div class="col-sm-6 col-md-6 col-lg-4">
+							<div class="col-sm-4 col-md-6 col-lg-4">
 								<div class="footer-widget widget-border">
 									<h3>{{ lang.my_account }}</h3>
 									<ul class="global-list" v-if="!authUser">
@@ -74,7 +74,7 @@
 									</ul>
 								</div>
 							</div>
-							<div class="col-sm-6 col-md-6 col-lg-4">
+							<div class="col-sm-4 col-md-6 col-lg-4">
 								<div class="footer-widget widget-border">
 									<h3>{{ lang.useful_links }}</h3>
 									<ul class="global-list" v-for="(link, i) in usefulLinks" :key="i">
@@ -84,7 +84,7 @@
 									</ul>
 								</div>
 							</div>
-							<div class="col-sm-6 col-md-6 col-lg-4">
+							<div class="col-sm-4 col-md-6 col-lg-4">
 								<div class="footer-widget widget-border">
 									<h3>{{ lang.contact_us }}</h3>
 									<div class="address">
@@ -97,50 +97,19 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col-sm-12 col-md-12 col-lg-3">
-								<div class="footer-widget">
-									<h3>{{ lang.about }}</h3>
-
-									<div class="social"
-										v-if="settings.show_social_links && settings.show_social_links == 1">
-										<ul class="global-list">
-											<li v-if="settings.facebook_link">
-												<a target="_blank" :href="settings.facebook_link"><span
-														class="mdi mdi-name mdi-facebook"></span></a>
-											</li>
-											<li v-if="settings.twitter_link">
-												<a target="_blank" :href="settings.twitter_link"><span
-														class="mdi mdi-name mdi-twitter"></span></a>
-											</li>
-											<li v-if="settings.linkedin_link">
-												<a target="_blank" :href="settings.linkedin_link"><span
-														class="mdi mdi-linkedin"></span></a>
-											</li>
-											<li v-if="settings.instagram_link">
-												<a target="_blank" :href="settings.instagram_link"><span
-														class="mdi mdi-instagram"></span></a>
-											</li>
-											<li v-if="settings.youtube_link">
-												<a target="_blank" :href="settings.youtube_link"><span
-														class="mdi mdi-youtube"></span></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div> -->
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 text-center">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-sm-6 col-md-6 mb-1">
 								<img src="https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb/1.0.0+Deploy-Release-283/Default/components/shared/NewFooter/images/google_play_store.png?q=low&amp;webp=1&amp;alpha=1"
 									data-reactid=".1n2zjksuaji.b.2.0.0.b.2.0.0.0.0.1">
 							</div>
-							<div class="col-md-6">
+							<div class="col-sm-6 col-md-6 mb-1">
 								<img src="https://chaldn.com/asset/Egg.ChaldalWeb.Fabric/Egg.ChaldalWeb/1.0.0+Deploy-Release-283/Default/components/shared/NewFooter/images/app_store.png?q=low&amp;webp=1&amp;alpha=1"
 									data-reactid=".1n2zjksuaji.b.2.0.0.b.2.0.0.1.0.1">
 							</div>
-							<div class="col-md-12 mt-5">
+							<div class="col-sm-8 col-md-12 mt-5">
 								<h4><span class="mdi mdi-phone-outline"></span>
 									<a :href="'tel:' + settings.footer_contact_phone">{{
 										settings.footer_contact_phone
@@ -151,9 +120,11 @@
 									<a :href="'mailto:' + settings.footer_contact_email">{{
 										settings.footer_contact_email }}</a>
 								</h5>
+							</div>
+							<div class="col-sm-4 col-md-12 d-flex justify-content-center">
 								<div class="social mt-5"
 									v-if="settings.show_social_links && settings.show_social_links == 1">
-									<ul class="global-list">
+									<ul class="global-list d-flex justify-content-center">
 										<li v-if="settings.facebook_link">
 											<a target="_blank" :href="settings.facebook_link"><span
 													class="mdi mdi-name mdi-facebook"></span></a>
@@ -203,11 +174,11 @@
 					<div class="payment-card">
 						<ul class="global-list">
 							<li><img :src="getUrl('public/images/bkash.webp')" alt="payment_method_banner"
-									class="img-fluid footer-payment-icon" width="50px"/>
-								</li>
-								<li><img :src="getUrl('public/images/nagad.webp')" alt="payment_method_banner"
-									class="img-fluid footer-payment-icon" width="50px"/>
-								</li>
+									class="img-fluid footer-payment-icon" width="50px" />
+							</li>
+							<li><img :src="getUrl('public/images/nagad.webp')" alt="payment_method_banner"
+									class="img-fluid footer-payment-icon" width="50px" />
+							</li>
 							<li v-if="settings.visa_pay_banner"><img :src="getUrl('public/images/payment-method/visa.svg')"
 									alt="visa_pay_banner" class="img-fluid footer-payment-icon" /></li>
 							<li v-if="settings.master_card_pay_banner"><img
@@ -228,7 +199,7 @@
 							<li v-if="settings.after_pay_banner"><img
 									:src="getUrl('public/images/payment-method/after-pay.svg')" alt="after_pay_banner"
 									class="img-fluid footer-payment-icon" /></li>
-							
+
 						</ul>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="full-content">
         <headNav></headNav>
-        <div class="row full-content">
+        <div class="row">
             <sideBar></sideBar>
             <div class="col-md-10 main-content p-0 m-0">
                 <!-- The floating button -->
@@ -183,9 +183,18 @@ export default {
 </script>
   
 <style scoped>
-/* Your component styles here */
 
-/* Custom CSS to position the floating button */
+.full-content {
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.main-content {
+    height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .floating-button {
     position: fixed;
     bottom: 50%;

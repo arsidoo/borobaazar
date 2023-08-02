@@ -4684,7 +4684,7 @@ a.delete:hover {
     padding: 0;
     width: 30px;
     text-align: center;
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 
 .cart-list li .quantity .btn:focus,

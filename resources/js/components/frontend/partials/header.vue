@@ -19,8 +19,8 @@
 					<div class="custom-column-2">
 						<div class="sg-search">
 							<div class="search-form">
-								<div class="btn-group w-100">
-									<input v-model="searchKey" type="text" class="form-control"
+								<div class="btn-group w-100 mt-2">
+									<input v-model="searchKey" type="text" class="form-control bg-white"
 										placeholder="Search for products (e.g. eggs, milk, potato)" @keyup="searchProducts"
 										@click.stop="searchDropdown" />
 									<a class="search_btn cursor_pointer"
@@ -97,8 +97,7 @@
 							</sidebar_categories>
 						</div>
 						<div class="d-flex justify-content-between">
-
-							<div @click="toggleHeaderMenu">
+							<div class="mt-2" @click="toggleHeaderMenu">
 								<a v-if="showHeaderMenu == false">
 									<div class="icon"><img alt="Compare Icon" class="img-fluid" width="40px"
 											:src="getUrl('public/images/others/arrowbottom.svg')" />
@@ -492,7 +491,7 @@
 					<ul class="global-list">
 						<li>
 							<a href="javascript:void(0)" @click.stop="homeMenu" class="sg-toggle">
-								<i class="mdi mdi-list"></i>
+								<img :src="getUrl('public/images/others/list.svg')" alt="Home" />
 							</a>
 						</li>
 						<li>
